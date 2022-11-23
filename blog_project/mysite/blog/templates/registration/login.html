@@ -1,0 +1,31 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class="container-fluid bg-dark text-light p-5">
+    <div class="container bg-dark p-5">
+        <h2 class="display-4">Please login:</h1>
+        <h3>(Must be a Superuser, please check with site admin)</h3>
+
+        {% if form.errors %}
+        <!-- if username and password dont match -->
+            <p>Your username and password did not match! Please try again</p>
+        {% endif %}
+        
+        <form action="{% url 'login' %}">
+            <!-- in the above line, action="{% url 'login' %}" means in the url.py file of blog, get the path with name of login-->
+            {% csrf_token %}
+                {% form.as_p %}
+                <input type="submit" class="btn btn-primary" value = 'Login'>
+                <input type="hidden" name ='next' value = "{{next}}">
+                <!-- {{next}} meaning: in urls.py, of mysite folder, the views.login will supply the {{next}} value
+                https://www.udemy.com/course/python-and-django-full-stack-web-developer-bootcamp/learn/lecture/6792412#questions/11221809
+                -->
+
+        </form>
+
+
+
+    </div>
+</div>
+
+{% endblock %}
